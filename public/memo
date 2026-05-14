@@ -1,0 +1,108 @@
+//ターミナルで起動して以下入力
+
+//node server.js
+
+//末田ゼミWebを右クリックして一番上のやつを押したらいける
+
+//現状
+今は仮に登録してる.メールアドレスをサーバーに保存して紹介してあったらログインできるようにしたいとこ
+すべてのボタンは動くようにそれぞれのページにはいくようになった
+
+パスワード忘れと新規登録はまだ設定してないから入力してもなにも来ない
+
+個人用のメアドはホームページに入れるようにはなってる
+大学のメアドはページがないからエラーになる.一応リンクはったらいけるようにはなる
+
+//修正
+問題は編集用俺のメアドと大学のメアドユーザー用でやってるけど大学のメアドでもコードが届いてしまうそこを直したいのとコードは届くけどadminじゃないからログインはできないようになってる
+いったん自分のメアドに変えてやってみて
+
+
+//やってほしいやつ
+そっちがいけるんやったらサーバーにに保存できるようにつくってほしいchtGPTはMongoDBこれ使ってっていってるけどあんまりわからん
+
+
+サーバーにさえ情報保存できるようになったらほぼ完成、今はserver.jsにユーザーとadminの情報書いてる
+
+//これがMongoDBのやつChatGPTにまたコピペしておくったら教えてくれると思うけど複雑やったから
+
+//UIは同じやつ使って基準はstyle.css使ってる
+① MongoDB準備
+🌐 Atlasに接続
+
+MongoDB Atlas にログイン
+
+Project作成
+Cluster作成（無料でOK）
+Database Accessでユーザー作成
+Network Accessで 0.0.0.0/0 許可（開発用）
+🔗 接続文字列コピー
+
+こんなやつ👇
+
+mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/DB名
+② Node.jsに追加
+
+ターミナル👇
+
+npm install mongoose bcrypt
+③ DB接続（server.js）
+
+一番上に追加👇
+
+const mongoose = require("mongoose");
+
+mongoose.connect("あなたのMongoDBURL")
+.then(() => console.log("DB接続OK"))
+.catch(err => console.log(err));
+④ Userモデル作成
+const userSchema = new mongoose.Schema({
+    email: String,
+    password: String,
+    role: String,
+    useOtp: Boolean
+});
+
+const User = mongoose.model("User", userSchema);
+⑤ 今までの users 配列を削除
+
+❌ これ消す👇
+
+const users = [ ... ];
+⑥ ログイン修正
+旧
+const user = users.find(...)
+新（DB）
+const user = await User.findOne({ email });
+⑦ 新規登録（本格版）
+app.post("/register", async (req, res) => {
+
+    const { email, password } = req.body;
+
+    const exists = await User.findOne({ email });
+
+    if (exists) {
+        return res.status(400).json({ message: "既に登録済み" });
+    }
+
+    const newUser = new User({
+        email,
+        password,
+        role: "user",
+        useOtp: false
+    });
+
+    await newUser.save();
+
+    res.json({ message: "登録成功" });
+});
+⚠️ 超重要（セキュリティ）
+
+本番は必ず👇
+
+npm install bcrypt
+const bcrypt = require("bcrypt");
+パスワード保存
+const hash = await bcrypt.hash(password, 10);
+ログイン比較
+await bcrypt.compare(password, user.password);
