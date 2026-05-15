@@ -17,19 +17,27 @@ const confirmDelete = document.getElementById("confirmDelete");
 const cancelDelete = document.getElementById("cancelDelete");
 
 let deleteTargetId = null;
+let activityCursorPos = 0;
 
+// 新規投稿 textarea のカーソル位置保存
+activityEditor.addEventListener("click", () => {
+    activityCursorPos = activityEditor.selectionStart;
+});
+
+activityEditor.addEventListener("keyup", () => {
+    activityCursorPos = activityEditor.selectionStart;
+});
 
 // 画像選択ボタン
 imageInsertBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    activityCursorPos = activityEditor.selectionStart;
     editorImage.click();
 });
 
-
-// 画像アップロードして本文にコードを挿入
+// 新規投稿：画像アップロードしてカーソル位置に挿入
 editorImage.addEventListener("change", async () => {
     const file = editorImage.files[0];
-
     if (!file) return;
 
     const width = document.getElementById("imgWidth").value || 400;
@@ -47,11 +55,18 @@ editorImage.addEventListener("change", async () => {
 
     const imageCode = `[img:${data.imageUrl}:${width}:${height}]\n`;
 
-    activityEditor.value += imageCode;
+    activityEditor.value =
+        activityEditor.value.substring(0, activityCursorPos) +
+        imageCode +
+        activityEditor.value.substring(activityCursorPos);
+
+    activityEditor.focus();
+    activityEditor.selectionStart =
+    activityEditor.selectionEnd =
+        activityCursorPos + imageCode.length;
 
     editorImage.value = "";
 });
-
 
 // 新規投稿
 postActivity.addEventListener("click", async () => {
@@ -86,7 +101,6 @@ postActivity.addEventListener("click", async () => {
     loadActivityPosts();
 });
 
-
 // 投稿一覧
 async function loadActivityPosts() {
     const res = await fetch("http://localhost:3000/activity-posts");
@@ -108,14 +122,63 @@ async function loadActivityPosts() {
 
             <textarea class="form-control textarea content-input">${post.content}</textarea>
 
+            <input type="file" class="edit-image-input" accept="image/*" hidden>
+
+            <button class="insert-image-btn">画像追加</button>
             <button class="update-btn">更新</button>
             <button class="delete-btn">削除</button>
         `;
 
+        const imageInput = div.querySelector(".edit-image-input");
+        const insertImageBtn = div.querySelector(".insert-image-btn");
         const titleInput = div.querySelector(".title-input");
         const contentInput = div.querySelector(".content-input");
         const updateBtn = div.querySelector(".update-btn");
         const deleteBtn = div.querySelector(".delete-btn");
+
+        let editCursorPos = 0;
+
+        contentInput.addEventListener("click", () => {
+            editCursorPos = contentInput.selectionStart;
+        });
+
+        contentInput.addEventListener("keyup", () => {
+            editCursorPos = contentInput.selectionStart;
+        });
+
+        insertImageBtn.addEventListener("click", () => {
+            editCursorPos = contentInput.selectionStart;
+            imageInput.click();
+        });
+
+        imageInput.addEventListener("change", async () => {
+            const file = imageInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            const res = await fetch("http://localhost:3000/upload-editor-image", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+
+            const imageCode = `[img:${data.imageUrl}:400:auto]\n`;
+
+            contentInput.value =
+                contentInput.value.substring(0, editCursorPos) +
+                imageCode +
+                contentInput.value.substring(editCursorPos);
+
+            contentInput.focus();
+            contentInput.selectionStart =
+            contentInput.selectionEnd =
+                editCursorPos + imageCode.length;
+
+            imageInput.value = "";
+        });
 
         updateBtn.addEventListener("click", async () => {
             const formData = new FormData();
@@ -148,13 +211,11 @@ async function loadActivityPosts() {
     });
 }
 
-
 // 削除キャンセル
 cancelDelete.addEventListener("click", () => {
     deleteTargetId = null;
     deleteModal.classList.remove("show");
 });
-
 
 // 削除実行
 confirmDelete.addEventListener("click", async () => {
@@ -170,12 +231,10 @@ confirmDelete.addEventListener("click", async () => {
     loadActivityPosts();
 });
 
-
 // モーダル閉じる
 document.getElementById("closeSuccessModal").addEventListener("click", () => {
     document.getElementById("successModal").classList.remove("show");
 });
-
 
 // ログアウト
 document.getElementById("logoutBtn").addEventListener("click", () => {
