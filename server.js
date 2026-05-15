@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
@@ -22,21 +23,30 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use(express.static("public"));
 app.use("/uploads", express.static("public/uploads"));
 
+// ルートパスの設定
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/suedazemi.html"));
+});
+
 // =========================
 // MongoDB接続
 // =========================
 
-mongoose.connect("")
+const MONGO_URI = process.env.MONGODB_URI || "";
+
+mongoose.connect(MONGO_URI)
 .then(() => {
     console.log("MongoDB接続成功");
 })
 .catch(err => {
-    console.log(err);
+    console.log("MongoDB接続エラー:", err);
 });
 
 
@@ -90,8 +100,8 @@ const otpStore = {};
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "",
-        pass: ""
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 
@@ -246,7 +256,7 @@ app.post("/login", async (req, res) => {
                 email: user.email
             },
 
-            "secretKey",
+            process.env.JWT_SECRET || "secretKey",
 
             {
                 expiresIn: "1h"
@@ -298,15 +308,21 @@ app.post("/request-reset", async (req, res) => {
             });
         }
 
+        // トークン生成
+        const token = crypto.randomBytes(20).toString("hex");
+        resetTokens[token] = {
+            email: email,
+            expires: Date.now() + 3600000 // 1時間有効
+        };
 
         // 再設定リンク
         const link =
-            `http://localhost:3000/reset-password.html?token=${token}`;
+            `http://localhost:${PORT}/reset-password.html?token=${token}`;
 
         // メール送信
         await transporter.sendMail({
 
-            from: "",
+            from: process.env.EMAIL_USER,
 
             to: email,
 
@@ -535,20 +551,10 @@ app.post("/upload-editor-image", upload.single("image"), (req, res) => {
     });
 });
 
-app.post("/upload-editor-image", upload.single("image"), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({
-            message: "画像がありません"
-        });
-    }
-
-    res.json({
-        imageUrl: `/uploads/${req.file.filename}`
-    });
+app.get("/test-route", (req, res) => {
+    res.send("Server is running correctly!");
 });
 
-
-
-app.listen(3000, () => {
-    console.log("http://localhost:3000 で起動中");
+app.listen(PORT, () => {
+    console.log(`[VERIFIED] Server started on http://localhost:${PORT}`);
 });
