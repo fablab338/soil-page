@@ -527,11 +527,21 @@ app.get("/reset-password", (req, res) => {
             </button>
         </div>
 
-        <input
-            type="password"
-            id="confirmPassword"
-            placeholder="パスワード確認"
-        >
+        <div class="password-box">
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="パスワード確認"
+            >
+
+            <button
+                type="button"
+                class="show-password"
+                onclick="togglePassword()"
+            >
+                表示
+            </button>
+        </div>
 
         <button
             class="reset-btn"
