@@ -317,7 +317,7 @@ app.post("/request-reset", async (req, res) => {
             `https://soil-page.onrender.com/reset-password?token=${token}`;
 
         await transporter.sendMail({
-            from: "amayu5610@gmail.com",
+            from: process.env.EMAIL_USER,
             to: email,
             subject: "パスワード再設定",
             text:
