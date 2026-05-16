@@ -36,6 +36,19 @@ document
         return;
     }
 
+    if (
+    !name ||
+    !faculty ||
+    !grade ||
+    !email ||
+    !password ||
+    !password1
+) {
+    errorMessage.textContent =
+        "すべての項目を入力してください";
+    return;
+}
+
     try {
 
         const res = await fetch(
