@@ -8,7 +8,7 @@ body {
 
 /* コンテナ */
 .admin-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -23,6 +23,23 @@ h1 {
     text-align: center;
     color: #666;
     margin-bottom: 30px;
+}
+
+/* 左右レイアウト */
+.admin-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.left-panel {
+    flex: 1;
+    min-width: 0;
+}
+
+.right-panel {
+    width: 300px;
+    flex-shrink: 0;
 }
 
 /* カード */
@@ -78,11 +95,12 @@ h1 {
 
 /* エディタ上部 */
 .editor-toolbar {
-      display: flex;
+    display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
     margin-top: 15px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .file-btn {
@@ -100,58 +118,21 @@ h1 {
     background: #218838;
 }
 
-
-.image-size-select {
-    width: 100px;
-    height: 44px;
-    padding: 0 12px;
-    border: none;
-    border-radius: 8px;
-    background: #f8f9fb;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 0;
-    appearance: none;
-}
-/* 投稿エディタ */
-.editor {
-    min-height: 300px;
-    padding: 20px;
+.image-size-input {
+    width: 90px;
+    height: 40px;
+    padding: 8px;
     border: 2px solid #e1e5e9;
-    border-radius: 10px;
-    background: white;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* 投稿エディタ */
+.textarea {
+    min-height: 300px;
+    resize: vertical;
     line-height: 1.8;
-    margin-bottom: 20px;
-}
-
-.editor:focus {
-    outline: none;
-    border-color: #ff6b6b;
-}
-
-/* エディタ内画像 */
-.editor-img,
-.activity-content img {
-    display: block;
-    margin: 20px auto;
-    border-radius: 0;
-}
-
-.editor-img.small,
-.activity-content img.small {
-    width: 250px;
-}
-
-.editor-img.medium,
-.activity-content img.medium {
-    width: 450px;
-}
-
-.editor-img.large,
-.activity-content img.large {
-    width: 700px;
-    max-width: 100%;
 }
 
 /* 投稿一覧 */
@@ -161,21 +142,6 @@ h1 {
     margin-bottom: 20px;
     border-radius: 12px;
     border-left: 5px solid #5b79d3;
-}
-
-.edit-content {
-    min-height: 180px;
-    padding: 15px;
-    border: 2px solid #e1e5e9;
-    border-radius: 10px;
-    background: white;
-    line-height: 1.8;
-    margin-bottom: 15px;
-}
-
-.edit-content:focus {
-    outline: none;
-    border-color: #5b79d3;
 }
 
 .admin-post button {
@@ -208,10 +174,44 @@ h1 {
 .insert-image-btn {
     background: #28a745;
     color: white;
+    border: none;
 }
 
 .insert-image-btn:hover {
     background: #218838;
+}
+
+/* 右側 外部サイト管理 */
+.right-panel .card {
+    position: sticky;
+    top: 30px;
+}
+
+#siteList {
+    margin-top: 15px;
+}
+
+#siteList p {
+    color: #666;
+    font-size: 14px;
+}
+
+.site-item {
+    padding: 12px;
+    border-radius: 8px;
+    background: #f8f9fb;
+    margin-bottom: 10px;
+    word-break: break-all;
+}
+
+.site-item a {
+    color: #5b79d3;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.site-item a:hover {
+    text-decoration: underline;
 }
 
 /* モーダル */
@@ -281,12 +281,36 @@ h1 {
     background: #cfd4da;
 }
 
-.image-size-input {
-    width: 90px;
-    height: 25px;
-    padding: 8px;
-    border: 2px solid #e1e5e9;
+.external-link-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    margin-top: 20px;   /* ←追加 */
+    background: #28a745;
+    color: white;
+    text-decoration: none;
     border-radius: 8px;
-    font-size: 14px;
+    font-weight: bold;
+    box-sizing: border-box;
 }
 
+.external-link-btn:hover {
+    background: #7edf93;
+}
+
+/* スマホ */
+@media (max-width: 900px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+
+    .right-panel .card {
+        position: static;
+    }
+}

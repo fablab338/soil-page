@@ -22,45 +22,80 @@
         投稿管理・活動編集
     </p>
 
-    <div class="card">
-        <h2>活動投稿</h2>
+    <div class="admin-layout">
 
-        <input
-            type="text"
-            id="activityTitle"
-            class="form-control"
-            placeholder="活動タイトル"
-        >
+        <!-- 左側 -->
+        <div class="left-panel">
 
-        <textarea
-            id="activityEditor"
-            class="form-control textarea"
-            placeholder="活動内容を入力してください"
-        ></textarea>
+            <div class="card">
+                <h2>活動投稿</h2>
 
-        <div class="editor-toolbar">
-            <input type="file" id="editorImage" accept="image/*" hidden>
+                <input
+                    type="text"
+                    id="activityTitle"
+                    class="form-control"
+                    placeholder="活動タイトル"
+                >
 
-            <button type="button" id="imageInsertBtn" class="file-btn">
-                画像を挿入
-            </button>
+                <textarea
+                    id="activityEditor"
+                    class="form-control textarea"
+                    placeholder="活動内容を入力してください"
+                ></textarea>
 
-            <input type="number" id="imgWidth" class="image-size-input" value="350" placeholder="横幅">
-            <input type="number" id="imgHeight" class="image-size-input" placeholder="高さ">
+                <div class="editor-toolbar">
+                    <input type="file" id="editorImage" accept="image/*" hidden>
+
+                    <button type="button" id="imageInsertBtn" class="file-btn">
+                        画像を挿入
+                    </button>
+
+                    <input type="number" id="imgWidth" class="image-size-input" value="350" placeholder="横幅">
+                    <input type="number" id="imgHeight" class="image-size-input" placeholder="高さ">
+                </div>
+
+                <button id="postActivity" class="btn-primary">
+                    投稿する
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>投稿一覧</h2>
+
+                <div id="activityList">
+                    <p>まだ投稿はありません</p>
+                </div>
+            </div>
+
         </div>
 
+        <!-- 右側 -->
+        <div class="right-panel">
 
-        <button id="postActivity" class="btn-primary">
-            投稿する
-        </button>
-    </div>
+            <div class="card">
+                <h2>外部管理</h2>
 
-    <div class="card">
-        <h2>投稿一覧</h2>
+                <a 
+                    href="https://cloud.mongodb.com/v2/69fcc16851d24c97bf2a7e93#/overview"
+                    target="_blank"
+                    class="external-link-btn"
+                >
+                    MongoDB
+                </a>
 
-        <div id="activityList">
-            <p>まだ投稿はありません</p>
+                <a 
+                    href="https://github.com/"
+                    target="_blank"
+                    class="external-link-btn"
+                >
+                    GitHub
+                </a>
+
+
+            </div>
+
         </div>
+
     </div>
 
 </div>
@@ -82,7 +117,6 @@
     <div class="modal-content">
         <h2>削除確認</h2>
         <p>この投稿を削除してもよろしいですか？</p>
-
 
         <div class="modal-buttons">
             <button id="confirmDelete" class="delete-confirm">
