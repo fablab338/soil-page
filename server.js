@@ -340,166 +340,262 @@ app.get("/reset-password", (req, res) => {
     const token = req.query.token;
 
     res.send(`
-        <!DOCTYPE html>
-        <html lang="ja">
-        <head>
-            <meta charset="UTF-8">
-            <title>パスワード再設定</title>
-        
+      <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>パスワード再設定</title>
 
-        <style>
-                body {
-                margin: 0;
-                min-height: 100vh;
-                font-family: "Poppins", "メイリオ", sans-serif;
-                background: linear-gradient(90deg, #5d7df5 50%, #eef2ff 50%);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                }
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Poppins", "メイリオ", sans-serif;
+            background: linear-gradient(90deg, #5d7df5 50%, #eef2ff 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-                .reset-container {
-                width: 900px;
-                max-width: 90%;
-                min-height: 500px;
-                display: flex;
-                background: white;
-                border-radius: 20px;
-                overflow: hidden;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-                }
+        .reset-container {
+            width: 900px;
+            max-width: 90%;
+            min-height: 500px;
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
 
-                .reset-left {
-                width: 50%;
-                background: linear-gradient(135deg, #5d7df5, #6f8cff);
-                color: white;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 48px;
-                font-weight: bold;
-                text-align: center;
-                line-height: 1.3;
-                padding: 40px;
-                }
+        /* 左側 */
+        .reset-left {
+            width: 50%;
+            background: linear-gradient(135deg, #5d7df5, #6f8cff);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.3;
+            padding: 40px;
+            box-sizing: border-box;
+        }
 
-                .reset-right {
-                width: 50%;
-                background: #f8f9ff;
-                padding: 60px;
-                display: flex;
+        /* 右側 */
+        .reset-right {
+            width: 50%;
+            background: #f8f9ff;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .reset-right h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        /* パスワード表示 */
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 70px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 15px;
+            top: 35%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 0;
+            border: none;
+            background: none;
+            color: #5d7df5;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .show-password:hover {
+            background: none;
+        }
+
+        /* 再設定ボタン */
+        .reset-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #5d7df5;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #4767e8;
+            transform: translateY(-2px);
+        }
+
+        /* ログイン戻る */
+        .back-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-login a {
+            color: #5d7df5;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-login a:hover {
+            text-decoration: underline;
+        }
+
+        #message {
+            margin-top: 15px;
+            text-align: center;
+            color: #333;
+        }
+
+        /* スマホ */
+        @media(max-width:768px) {
+            .reset-container {
                 flex-direction: column;
-                justify-content: center;
-                box-sizing: border-box;
-                }
+            }
 
-                .reset-right h2 {
-                text-align: center;
-                margin-bottom: 30px;
-                color: #333;
-                }
-
-                input {
+            .reset-left,
+            .reset-right {
                 width: 100%;
-                padding: 14px;
-                border: none;
-                border-radius: 10px;
-                background: white;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-                box-sizing: border-box;
-                margin-bottom: 20px;
-                }
+            }
 
-                button {
-                width: 100%;
-                padding: 14px;
-                border: none;
-                border-radius: 10px;
-                background: #5d7df5;
-                color: white;
-                font-weight: 600;
-                cursor: pointer;
-                transition: 0.3s;
-                }
+            .reset-left {
+                height: 200px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
 
-                button:hover {
-                background: #4767e8;
-                transform: translateY(-2px);
-                }
+<body>
 
-                #message {
-                margin-top: 15px;
-                text-align: center;
-                color: #333;
-                }
+<div class="reset-container">
 
-                @media(max-width:768px){
-                .reset-container{
-                    flex-direction: column;
-                }
+    <div class="reset-left">
+        SOIL LAB<br>
+        Reset Password
+    </div>
 
-                .reset-left,
-                .reset-right{
-                    width:100%;
-                }
+    <div class="reset-right">
+        <h2>パスワード再設定</h2>
 
-                .reset-left{
-                    height:200px;
-                    font-size:30px;
-                }
-            }   
-                
-            </style>
-        </head>
+        <div class="password-box">
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="新しいパスワード"
+            >
 
-        <body>
-            <div class="reset-container">
+            <button
+                type="button"
+                class="show-password"
+                onclick="togglePassword()"
+            >
+                表示
+            </button>
+        </div>
 
-                <div class="reset-left">
-                SOIL LAB<br>
-                Reset Password
-                </div>
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="パスワード確認"
+        >
 
-                <div class="reset-right">
-                <h2>パスワード再設定</h2>
+        <button
+            class="reset-btn"
+            onclick="resetPassword()"
+        >
+            再設定する
+        </button>
 
-                <input
-                    type="password"
-                    id="newPassword"
-                    placeholder="新しいパスワード"
-                >
+        <div class="back-login">
+            <a href="/suedazemi login.html">
+                ログインに戻る
+            </a>
+        </div>
 
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="パスワード確認"
-                >
+        <p id="message"></p>
+    </div>
 
-                <button type="button">表示</button>
+</div>
 
-                <button onclick="resetPassword()">
-                    再設定する
-                </button>
+<script>
+function togglePassword() {
+    const password =
+        document.getElementById("newPassword");
 
-                <a href="/suedazemi login.html">
-                    ログインに戻る
-                </a>
+    if (password.type === "password") {
+        password.type = "text";
+    } else {
+        password.type = "password";
+    }
+}
 
+async function resetPassword() {
 
-                <p id="message"></p>
-                </div>
+    const newPassword =
+        document.getElementById("newPassword").value;
 
-            </div>
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
 
-            <script>
-                if(newPassword !== confirmPassword){
-                    alert("パスワードが一致しません");
-                    return;
-                }
+    if (newPassword !== confirmPassword) {
+        alert("パスワードが一致しません");
+        return;
+    }
 
-            </script>
-        </body>
-        </html>
+    const res = await fetch("/reset-password", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            token: "${token}",
+            newPassword
+        })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("message").textContent =
+        data.message;
+}
+</script>
+
+</body>
+</html>
     `);
 });
 
