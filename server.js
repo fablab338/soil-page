@@ -313,7 +313,7 @@ app.post("/request-reset", async (req, res) => {
         };
 
         const resetLink =
-            `http://localhost:3000/reset-password?token=${token}`;
+            `https://soil-page.onrender.com/reset-password?token=${token}`;
 
         await transporter.sendMail({
             from: "amayu5610@gmail.com",
