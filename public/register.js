@@ -52,7 +52,7 @@ document
     try {
 
         const res = await fetch(
-            "http://localhost:3000/register",
+            "https://soil-page.onrender.com/register",
             {
 
                 method: "POST",

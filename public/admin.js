@@ -46,7 +46,7 @@ editorImage.addEventListener("change", async () => {
     const formData = new FormData();
     formData.append("image", file);
 
-    const res = await fetch("http://localhost:3000/upload-editor-image", {
+    const res = await fetch("https://soil-page.onrender.com/upload-editor-image", {
         method: "POST",
         body: formData
     });
@@ -85,7 +85,7 @@ postActivity.addEventListener("click", async () => {
     formData.append("title", title);
     formData.append("content", content);
 
-    const res = await fetch("http://localhost:3000/post-activity", {
+    const res = await fetch("https://soil-page.onrender.com/post-activity", {
         method: "POST",
         body: formData
     });
@@ -103,7 +103,7 @@ postActivity.addEventListener("click", async () => {
 
 // 投稿一覧
 async function loadActivityPosts() {
-    const res = await fetch("http://localhost:3000/activity-posts");
+    const res = await fetch("https://soil-page.onrender.com/activity-posts");
     const posts = await res.json();
 
     activityList.innerHTML = "";
@@ -158,7 +158,7 @@ async function loadActivityPosts() {
             const formData = new FormData();
             formData.append("image", file);
 
-            const res = await fetch("http://localhost:3000/upload-editor-image", {
+            const res = await fetch("https://soil-page.onrender.com/upload-editor-image", {
                 method: "POST",
                 body: formData
             });
@@ -187,7 +187,7 @@ async function loadActivityPosts() {
             formData.append("content", contentInput.value);
 
             const res = await fetch(
-                `http://localhost:3000/activity-posts/${post._id}`,
+                `https://soil-page.onrender.com/activity-posts/${post._id}`,
                 {
                     method: "PUT",
                     body: formData
@@ -221,7 +221,7 @@ cancelDelete.addEventListener("click", () => {
 confirmDelete.addEventListener("click", async () => {
     if (!deleteTargetId) return;
 
-    await fetch(`http://localhost:3000/activity-posts/${deleteTargetId}`, {
+    await fetch(`https://soil-page.onrender.com/activity-posts/${deleteTargetId}`, {
         method: "DELETE"
     });
 

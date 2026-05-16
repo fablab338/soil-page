@@ -2,7 +2,7 @@ async function loadActivity() {
     const container = document.getElementById("activityContainer");
 
     try {
-        const res = await fetch("http://localhost:3000/activity-posts");
+        const res = await fetch("https://soil-page.onrender.com/activity-posts");
         const posts = await res.json();
 
         container.innerHTML = "";
@@ -22,7 +22,7 @@ async function loadActivity() {
                     (match, url, width, height) => {
                         return `
                             <img
-                                src="http://localhost:3000${url}"
+                                src="https://soil-page.onrender.com${url}"
                                 style="
                                     width:${width}px;
                                     height:${height === "auto" ? "auto" : height + "px"};
