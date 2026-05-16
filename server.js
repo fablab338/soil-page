@@ -32,7 +32,7 @@ app.use("/uploads", express.static("public/uploads"));
 
 // ルートパスの設定
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/suedazemi.html"));
+    res.sendFile(path.join(__dirname, "public/suedazemi login.html"));
 });
 
 // =========================
