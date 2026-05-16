@@ -383,6 +383,58 @@ app.get("/reset-password", (req, res) => {
                         data.message;
                 }
             </script>
+
+            <style>
+                body {
+                    margin: 0;
+                    min-height: 100vh;
+                    font-family: "メイリオ", sans-serif;
+                    background: linear-gradient(90deg, #5d7df5 50%, #eef2ff 50%);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .reset-card {
+                    width: 400px;
+                    background: white;
+                    padding: 35px;
+                    border-radius: 18px;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+                    text-align: center;
+                }
+
+                input {
+                    width: 100%;
+                    padding: 14px;
+                    border: none;
+                    border-radius: 10px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+                    box-sizing: border-box;
+                    margin-bottom: 20px;
+                }
+
+                button {
+                    width: 100%;
+                    padding: 14px;
+                    border: none;
+                    border-radius: 10px;
+                    background: #5d7df5;
+                    color: white;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+
+                button:hover {
+                    background: #4767e8;
+                }
+
+                #message {
+                    margin-top: 15px;
+                    color: #333;
+                }
+            </style>
+
         </body>
         </html>
     `);
