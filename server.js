@@ -291,12 +291,9 @@ const resetTokens = {};
 // パスワード再設定メール送信
 // =========================
 app.post("/request-reset", async (req, res) => {
-
     try {
-
         const { name, email } = req.body;
 
-        // 氏名 + メール確認
         const user = await User.findOne({
             name: name,
             email: email
@@ -308,28 +305,22 @@ app.post("/request-reset", async (req, res) => {
             });
         }
 
-        // トークン生成
         const token = crypto.randomBytes(20).toString("hex");
+
         resetTokens[token] = {
             email: email,
-            expires: Date.now() + 3600000 // 1時間有効
+            expires: Date.now() + 3600000
         };
 
-        // 再設定リンク
-        const link =
-            `http://localhost:${PORT}/reset-password.html?token=${token}`;
+        const resetLink =
+            `http://localhost:3000/reset-password?token=${token}`;
 
-        // メール送信
         await transporter.sendMail({
-
-            from: process.env.EMAIL_USER,
-
+            from: "amayu5610@gmail.com",
             to: email,
-
             subject: "パスワード再設定",
-
             text:
-                `以下のリンクからパスワードを再設定してください。\n\n${link}`
+                `以下のリンクからパスワードを再設定してください。\n\n${resetLink}`
         });
 
         res.json({
@@ -337,13 +328,64 @@ app.post("/request-reset", async (req, res) => {
         });
 
     } catch (err) {
-
         console.error(err);
 
         res.status(500).json({
             message: "サーバーエラー"
         });
     }
+});
+
+app.get("/reset-password", (req, res) => {
+    const token = req.query.token;
+
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="ja">
+        <head>
+            <meta charset="UTF-8">
+            <title>パスワード再設定</title>
+        </head>
+        <body>
+            <h2>新しいパスワードを入力</h2>
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="新しいパスワード"
+            >
+
+            <button onclick="resetPassword()">
+                再設定する
+            </button>
+
+            <p id="message"></p>
+
+            <script>
+                async function resetPassword() {
+                    const newPassword =
+                        document.getElementById("newPassword").value;
+
+                    const res = await fetch("/reset-password", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            token: "${token}",
+                            newPassword
+                        })
+                    });
+
+                    const data = await res.json();
+
+                    document.getElementById("message").textContent =
+                        data.message;
+                }
+            </script>
+        </body>
+        </html>
+    `);
 });
 
 
