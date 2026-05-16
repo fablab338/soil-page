@@ -469,14 +469,35 @@ app.get("/reset-password", (req, res) => {
                     placeholder="新しいパスワード"
                 >
 
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="パスワード確認"
+                >
+
+                <button type="button">表示</button>
+
                 <button onclick="resetPassword()">
                     再設定する
                 </button>
+
+                <a href="/suedazemi login.html">
+                    ログインに戻る
+                </a>
+
 
                 <p id="message"></p>
                 </div>
 
             </div>
+
+            <script>
+                if(newPassword !== confirmPassword){
+                    alert("パスワードが一致しません");
+                    return;
+                }
+
+            </script>
         </body>
         </html>
     `);
