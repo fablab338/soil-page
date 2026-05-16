@@ -311,13 +311,15 @@ app.post("/request-reset", async (req, res) => {
         const resetLink =
             `https://soil-page.onrender.com/reset-password?token=${token}`;
 
-        await resend.emails.send({
-            from: "noreply@yourdomain.dev",
+        const result = await resend.emails.send({
+            from: "onboarding@resend.dev",
             to: email,
             subject: "パスワード再設定",
             text:
                 `以下のリンクからパスワードを再設定してください。\n\n${resetLink}`
         });
+
+console.log(result);    
 
         console.log(result);
 
