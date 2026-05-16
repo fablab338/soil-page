@@ -345,96 +345,138 @@ app.get("/reset-password", (req, res) => {
         <head>
             <meta charset="UTF-8">
             <title>パスワード再設定</title>
-        </head>
-        <body>
-            <h2>新しいパスワードを入力</h2>
+        
 
-            <input
-                type="password"
-                id="newPassword"
-                placeholder="新しいパスワード"
-            >
-
-            <button onclick="resetPassword()">
-                再設定する
-            </button>
-
-            <p id="message"></p>
-
-            <script>
-                async function resetPassword() {
-                    const newPassword =
-                        document.getElementById("newPassword").value;
-
-                    const res = await fetch("/reset-password", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            token: "${token}",
-                            newPassword
-                        })
-                    });
-
-                    const data = await res.json();
-
-                    document.getElementById("message").textContent =
-                        data.message;
-                }
-            </script>
-
-            <style>
+        <style>
                 body {
-                    margin: 0;
-                    min-height: 100vh;
-                    font-family: "メイリオ", sans-serif;
-                    background: linear-gradient(90deg, #5d7df5 50%, #eef2ff 50%);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                margin: 0;
+                min-height: 100vh;
+                font-family: "Poppins", "メイリオ", sans-serif;
+                background: linear-gradient(90deg, #5d7df5 50%, #eef2ff 50%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 }
 
-                .reset-card {
-                    width: 400px;
-                    background: white;
-                    padding: 35px;
-                    border-radius: 18px;
-                    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-                    text-align: center;
+                .reset-container {
+                width: 900px;
+                max-width: 90%;
+                min-height: 500px;
+                display: flex;
+                background: white;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+                }
+
+                .reset-left {
+                width: 50%;
+                background: linear-gradient(135deg, #5d7df5, #6f8cff);
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 48px;
+                font-weight: bold;
+                text-align: center;
+                line-height: 1.3;
+                padding: 40px;
+                }
+
+                .reset-right {
+                width: 50%;
+                background: #f8f9ff;
+                padding: 60px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                box-sizing: border-box;
+                }
+
+                .reset-right h2 {
+                text-align: center;
+                margin-bottom: 30px;
+                color: #333;
                 }
 
                 input {
-                    width: 100%;
-                    padding: 14px;
-                    border: none;
-                    border-radius: 10px;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-                    box-sizing: border-box;
-                    margin-bottom: 20px;
+                width: 100%;
+                padding: 14px;
+                border: none;
+                border-radius: 10px;
+                background: white;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+                box-sizing: border-box;
+                margin-bottom: 20px;
                 }
 
                 button {
-                    width: 100%;
-                    padding: 14px;
-                    border: none;
-                    border-radius: 10px;
-                    background: #5d7df5;
-                    color: white;
-                    font-weight: bold;
-                    cursor: pointer;
+                width: 100%;
+                padding: 14px;
+                border: none;
+                border-radius: 10px;
+                background: #5d7df5;
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+                transition: 0.3s;
                 }
 
                 button:hover {
-                    background: #4767e8;
+                background: #4767e8;
+                transform: translateY(-2px);
                 }
 
                 #message {
-                    margin-top: 15px;
-                    color: #333;
+                margin-top: 15px;
+                text-align: center;
+                color: #333;
                 }
-            </style>
 
+                @media(max-width:768px){
+                .reset-container{
+                    flex-direction: column;
+                }
+
+                .reset-left,
+                .reset-right{
+                    width:100%;
+                }
+
+                .reset-left{
+                    height:200px;
+                    font-size:30px;
+                }
+            }   
+                
+            </style>
+        </head>
+
+        <body>
+            <div class="reset-container">
+
+                <div class="reset-left">
+                SOIL LAB<br>
+                Reset Password
+                </div>
+
+                <div class="reset-right">
+                <h2>パスワード再設定</h2>
+
+                <input
+                    type="password"
+                    id="newPassword"
+                    placeholder="新しいパスワード"
+                >
+
+                <button onclick="resetPassword()">
+                    再設定する
+                </button>
+
+                <p id="message"></p>
+                </div>
+
+            </div>
         </body>
         </html>
     `);
