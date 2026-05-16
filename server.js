@@ -319,6 +319,8 @@ app.post("/request-reset", async (req, res) => {
                 `以下のリンクからパスワードを再設定してください。\n\n${resetLink}`
         });
 
+        console.log(result);
+
         res.json({
             message: "再設定メールを送信しました"
         });
