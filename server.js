@@ -25,6 +25,9 @@ const upload = multer({ storage: storage });
 
 const PORT = process.env.PORT || 3000;
 
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use(express.static("public"));
@@ -97,15 +100,7 @@ const otpStore = {};
 // Gmail送信
 // =========================
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
+
 
 // =========================
 // 新規登録
@@ -316,8 +311,8 @@ app.post("/request-reset", async (req, res) => {
         const resetLink =
             `https://soil-page.onrender.com/reset-password?token=${token}`;
 
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+        await resend.emails.send({
+            from: "onboarding@resend.dev",
             to: email,
             subject: "パスワード再設定",
             text:
