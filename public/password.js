@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("送信データ:", name, email);
 
         const res = await fetch(
-            "http://localhost:3000/request-reset",
+           "https://soil-page.onrender.com/request-reset",
             {
                 method: "POST",
 
