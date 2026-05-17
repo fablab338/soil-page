@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(90deg, #364e8b, #5b79d3);
+  background: linear-gradient(90deg, #1f3a5f, #4f6f9f);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -20,6 +20,7 @@
   font-weight: bold;
   text-decoration: none;
   transition: transform 0.3s;
+  white-space: nowrap;
 }
 
 .navbar-brand:hover {
@@ -33,7 +34,7 @@
   margin: 0;
   padding: 0;
   margin-left: auto;
-  padding-right: 40px;
+  padding-right: 100px;
 }
 
 .navbar-nav .nav-item {
@@ -53,7 +54,22 @@
 
 .navbar-nav .nav-item a:hover {
   background-color: rgba(255, 255, 255, 0.15);
-  color: #e0f7ff;
+  color: #c9a44c;
+}
+
+.logout-btn {
+  background: #c9a44c;
+  color: #1f2d3d;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.logout-btn:hover {
+  background: #d8b75e;
 }
 
 .burger {
@@ -94,20 +110,19 @@
 }
 
 .logout-btn {
-    background: #758edf;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
+  background: #c9a44c;
+  color: #1f2d3d;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .logout-btn:hover {
-    background: #5674b4;
+  background: #d8b75e;
 }
-
 
 body {
   padding-top: 70px;
@@ -117,19 +132,30 @@ body {
 }
 
 main.contact {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 900px;
+  margin: 35px auto;
+  padding: 42px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+  border-top: 6px solid #1f3a5f;
 }
 
 .contact h1 {
-  font-size: 2.2rem;
+  font-size: 2.3rem;
   text-align: center;
-  color: #626362;
+  color: #1f3a5f;
   margin-bottom: 2rem;
+}
+
+.contact h1::after {
+  content: "";
+  display: block;
+  width: 250px;
+  height: 4px;
+  background: #c9a44c;
+  margin: 18px auto 0;
+  border-radius: 3px;
 }
 
 .contact p {
@@ -139,56 +165,43 @@ main.contact {
   text-align: center;
 }
 
-.contact .form-group {
-  margin-bottom: 1.5rem;
-}
-
 .contact label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #2b3a67;
+  color: #1f3a5f;
 }
 
 .contact input,
 .contact textarea {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e1e5e9;
+  border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  font-family: "メイリオ", sans-serif;
   box-sizing: border-box;
-  background-color: #fff;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact input:focus,
 .contact textarea:focus {
   outline: none;
-  border-color: #5b79d3;
-  box-shadow: 0 0 0 3px rgba(91, 121, 211, 0.15);
-}
-
-.contact textarea {
-  resize: none;
+  border-color: #c9a44c;
+  box-shadow: 0 0 0 3px rgba(201,164,76,0.2);
 }
 
 .contact button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(90deg, #364e8b, #5b79d3);
+  background: linear-gradient(90deg, #1f3a5f, #4f6f9f);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
-  font-weight: 600;
-  font-family: "メイリオ", sans-serif;
+  font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .contact button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(91, 121, 211, 0.3);
+  background: #c9a44c;
+  color: #1f2d3d;
 }

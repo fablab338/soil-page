@@ -38,7 +38,7 @@ async function loadActivity() {
 
             container.innerHTML += `
                 <section class="activity-box">
-                    <h2>${post.title}</h2>
+                    <h2  class="heading-14">${post.title}</h2>
                     <p>${formattedContent}</p>
                     <p class="activity-date">${date}</p>
                 </section>
