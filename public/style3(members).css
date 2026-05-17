@@ -39,11 +39,10 @@
 .navbar-nav .nav-item a {
   color: white;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 17px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  font-weight: 700;
+  font-size: 20px;   
+  padding: 14px 22px; 
+  border-radius: 10px;
 }
 
 .navbar-nav .nav-item a:hover {
