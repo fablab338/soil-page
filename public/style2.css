@@ -40,13 +40,6 @@ body {
   letter-spacing: 1px;
 }
 
-.navbar-brand::after {
-  content: " Seminar";
-  color: var(--accent);
-  font-size: 18px;
-  margin-left: 6px;
-}
-
 .navbar-nav {
   list-style: none;
   display: flex;
