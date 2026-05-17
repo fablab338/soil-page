@@ -51,19 +51,19 @@ body {
 .navbar-nav {
   list-style: none;
   display: flex;
-  gap: 22px;
+  gap: 35px;
   margin: 0 0 0 auto;
   padding: 0;
 }
 
 .navbar-nav .nav-item a {
-  color: var(--white);
+  color: white;
   text-decoration: none;
   font-weight: 600;
-  font-size: 15px;
-  padding: 9px 12px;
-  border-radius: 6px;
-  transition: 0.25s;
+  font-size: 17px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 .navbar-nav .nav-item a:hover {
