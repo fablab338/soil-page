@@ -1,74 +1,165 @@
+:root {
+  --main: #1f3a5f;
+  --sub: #4f6f9f;
+  --accent: #c9a44c;
+  --bg: #f4f6f8;
+  --text: #333;
+  --white: #fff;
+}
+
+/* 全体 */
+body {
+  margin: 0;
+  padding-top: 76px;
+  font-family: "Hiragino Sans", "メイリオ", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ナビ */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(90deg, #364e8b, #5b79d3);
+  height: 70px;
+  background: var(--main);
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  padding: 0 40px;
-  height: 65px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0 45px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
   z-index: 1000;
+  box-sizing: border-box;
 }
 
 .navbar-brand {
-  color: #fff;
-  font-family: "メイリオ", sans-serif;
+  color: var(--white);
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;
-  transition: transform 0.3s;
+  letter-spacing: 1px;
 }
 
-.navbar-brand:hover {
-  transform: scale(1.05);
+.navbar-brand::after {
+  content: " Seminar";
+  color: var(--accent);
+  font-size: 18px;
+  margin-left: 6px;
 }
 
 .navbar-nav {
   list-style: none;
   display: flex;
-  gap: 25px;
-  margin: 0;
+  gap: 22px;
+  margin: 0 0 0 auto;
   padding: 0;
-  margin-left: auto; 
-  padding-right: 40px;
-  padding-left: 0; 
-}
-
-.navbar-nav .nav-item {
-  margin-bottom: 0;    
-  line-height: normal; 
 }
 
 .navbar-nav .nav-item a {
-  color: white;
+  color: var(--white);
   text-decoration: none;
   font-weight: 600;
-  font-size: 17px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  font-size: 15px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  transition: 0.25s;
 }
 
 .navbar-nav .nav-item a:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #e0f7ff;
+  background: rgba(255,255,255,0.12);
+  color: #f4d27a;
 }
 
+/* ログアウト */
+.logout-btn {
+  background: var(--accent);
+  color: #1f2d3d;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.logout-btn:hover {
+  background: #d8b75e;
+}
+
+/* メイン */
+main {
+  max-width: 1050px;
+  margin: 35px auto;
+  padding: 42px;
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+  border-top: 6px solid var(--main);
+}
+
+/* 見出し */
+h1 {
+  font-size: 2.3rem;
+  text-align: center;
+  color: var(--main);
+  margin-bottom: 2.3rem;
+  letter-spacing: 1px;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: var(--accent);
+  margin: 18px auto 0;
+  border-radius: 3px;
+}
+
+h2 {
+  font-size: 1.45rem;
+  color: var(--main);
+  border-left: 6px solid var(--accent);
+  padding-left: 12px;
+  margin-top: 2.4rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: normal;
+  color: #444;
+  line-height: 1.9;
+}
+
+/* リスト */
+ol,
+ul {
+  padding-left: 1.6rem;
+}
+
+ol li,
+ul li {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+ol li::marker,
+ul li::marker {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* スマホ */
 .burger {
   display: none;
   flex-direction: column;
-  justify-content: center;
   cursor: pointer;
-  padding: 10px;
 }
 
 .burger div {
-  width: 25px;
+  width: 26px;
   height: 3px;
-  background-color: white;
+  background: white;
   margin: 4px;
   border-radius: 2px;
 }
@@ -76,11 +167,11 @@
 @media screen and (max-width: 1024px) {
   .navbar-nav {
     position: absolute;
-    top: 65px;
+    top: 70px;
     right: 0;
-    flex-direction: column;
-    background-color: #364e8b;
     width: 100%;
+    flex-direction: column;
+    background: var(--main);
     display: none;
     padding: 20px 0;
   }
@@ -91,95 +182,11 @@
 
   .burger {
     display: flex;
+    margin-left: auto;
+  }
+
+  main {
+    margin: 20px;
+    padding: 26px;
   }
 }
-
-.logout-btn {
-    background: #758edf;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-.logout-btn:hover {
-    background: #5674b4;
-}
-
-body {
-  padding-top: 70px; 
-  margin: 0;
-  font-family: "メイリオ", sans-serif;
-  background-color: #f8f9fb;
-}
-
-main {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-h1 {
-  font-size: 2.2rem;
-  text-align: center;
-  color: #626362;
-  margin-bottom: 2rem;
-}
-
-
-h2 {
-  font-size: 1.5rem;
-  color: #2b3a67;
-  border-left: 5px solid #5b79d3;
-  padding-left: 10px;
-  margin-top: 2rem;
-}
-
-h3 {
-  font-size: 1.1rem;
-  font-weight: normal;
-  color: #444;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-}
-
-ol {
-  padding-left: 1.5rem;
-  color: #333;
-}
-
-ol li {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-  position: relative;
-}
-
-ol li::marker {
-  color: #5b79d3;
-  font-weight: bold;
-}
-
-ul {
-  padding-left: 1.5rem;
-  color: #333;
-}
-
-ul li {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-  position: relative;
-}
-
-ul li::marker {
-  color: #5b79d3;
-  font-weight: bold;
-}
-
-/* #5b79d3 */
-/*#364e8b */
