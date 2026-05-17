@@ -33,11 +33,12 @@ body {
 }
 
 .navbar-brand {
-  color: var(--white);
+  color: #fff;
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;
   letter-spacing: 1px;
+  text-shadow: none;
 }
 
 .navbar-nav {
