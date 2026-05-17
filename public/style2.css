@@ -135,7 +135,7 @@ h3 {
 .heading-18 {
     padding: .5em .7em;
     border: 2px solid #036eba;
-    box-shadow: none;
+    box-shadow: 5px 5px #036eba;
     color: #036eba;
 }
 
