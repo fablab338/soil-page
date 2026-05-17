@@ -42,6 +42,7 @@ editorImage.addEventListener("change", async () => {
 
     const width = document.getElementById("imgWidth").value || 400;
     const height = document.getElementById("imgHeight").value || "auto";
+    const layout = document.getElementById("imageLayout").value || "single";
 
     const formData = new FormData();
     formData.append("image", file);
@@ -53,7 +54,7 @@ editorImage.addEventListener("change", async () => {
 
     const data = await res.json();
 
-    const imageCode = `[img:${data.imageUrl}:${width}:${height}]\n`;
+    const imageCode = `[img:${data.imageUrl}:${width}:${height}:${layout}]\n`;
 
     activityEditor.value =
         activityEditor.value.substring(0, activityCursorPos) +
@@ -165,7 +166,10 @@ async function loadActivityPosts() {
 
             const data = await res.json();
 
-            const imageCode = `[img:${data.imageUrl}:400:auto]\n`;
+            const layout = document.getElementById("imageLayout").value || "single";
+
+            const imageCode =
+            `[img:${data.imageUrl}:400:auto:${layout}]\n`;
 
             contentInput.value =
                 contentInput.value.substring(0, editCursorPos) +

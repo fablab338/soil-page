@@ -165,6 +165,18 @@ h3 {
     filter: blur(4px);
 }
 
+.activity-img.single {
+    display: block;
+    margin: 20px auto;
+}
+
+.activity-img.row {
+    display: inline-block;
+    margin: 10px;
+    vertical-align: top;
+}
+
+
 
 
 /* リスト */
