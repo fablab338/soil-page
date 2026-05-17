@@ -133,23 +133,23 @@ h3 {
 
 .heading-24 {
     position: relative;
-    padding-left: 70px;
-    margin-bottom: 30px;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
-    color: #1f3a5f;
-    line-height: 1.4;
+    color: #222;
+    z-index: 2;
+    margin-bottom: 40px;
 }
 
 .heading-24::before {
     content: attr(data-number);
     position: absolute;
-    left: 0;
-    top: -8px;
-    font-size: 55px;
+    top: -25px;
+    left: 20px;
+    font-size: 90px;
     font-weight: bold;
-    color: rgba(201, 164, 76, 0.25);
-    z-index: 0;
+    color: rgba(12, 134, 150, 0.18);
+    z-index: -1;
+    line-height: 1;
 }
 
 .heading-24 {
