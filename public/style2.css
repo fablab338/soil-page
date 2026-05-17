@@ -41,6 +41,11 @@ body {
   text-shadow: none;
 }
 
+.navbar-brand {
+  outline: none;
+  border: none;
+}
+
 .navbar-nav {
   list-style: none;
   display: flex;
