@@ -131,6 +131,26 @@ h3 {
   line-height: 1.9;
 }
 
+.heading-24 {
+    position: relative;
+    padding-top: 1.5em;
+    color: #333333;
+}
+
+.heading-24::before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    color: #dbfbff;
+    font-size: 3em;
+    line-height: 1;
+    content: attr(data-number);
+    pointer-events: none;
+}
+
+
+
 /* リスト */
 ol,
 ul {
