@@ -131,29 +131,11 @@ h3 {
   line-height: 1.9;
 }
 
-.heading-24 {
-    position: relative;
-    font-size: 32px;
-    font-weight: bold;
-    color: #222;
-    z-index: 2;
-    margin-bottom: 40px;
-}
-
-.heading-24::before {
-    content: attr(data-number);
-    position: absolute;
-    top: -25px;
-    left: 20px;
-    font-size: 90px;
-    font-weight: bold;
-    color: rgba(12, 134, 150, 0.18);
-    z-index: -1;
-    line-height: 1;
-}
-
-.heading-24 {
-    z-index: 1;
+.heading-18 {
+    padding: .5em .7em;
+    border: 2px solid #036eba;
+    box-shadow: 5px 5px #036eba;
+    color: #036eba;
 }
 
 
