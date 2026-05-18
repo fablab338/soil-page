@@ -36,18 +36,48 @@ async function loadActivity() {
                     }
                 );
 
-            container.innerHTML += `
-                <section class="activity-box">
-                    <h2  class="heading-14">${post.title}</h2>
+         container.innerHTML += `
+            <section class="activity-card">
+
+                <h2 class="heading-14">${post.title}</h2>
+
+                <p class="activity-date">${date}</p>
+
+                <p class="activity-preview">
+                    ${post.content
+                .replace(/\[img:.*?\]/g, "")
+                .substring(0, 120)}...
+                </p>
+
+                <button 
+                    class="detail-btn"
+                    onclick="toggleDetail(this)">
+                    詳細を見る
+                </button>
+
+                <div class="activity-detail" style="display:none;">
                     <p>${formattedContent}</p>
-                    <p class="activity-date">${date}</p>
-                </section>
-            `;
+                </div>
+
+            </section>
+        `;
         });
 
     } catch (err) {
         console.error(err);
         container.innerHTML = "<p>活動投稿を取得できませんでした。</p>";
+    }
+}
+
+function toggleDetail(button) {
+    const detail = button.nextElementSibling;
+
+    if (detail.style.display === "none") {
+        detail.style.display = "block";
+        button.textContent = "閉じる";
+    } else {
+        detail.style.display = "none";
+        button.textContent = "詳細を見る";
     }
 }
 
